@@ -1803,7 +1803,6 @@ contract TeggNFTTheta is TNT721, Ownable {
     // using SafeMath32 for uint32;
     // using SafeMath16 for uint16;
 
-    uint256[] public teggNFTz; // theres a better way to do this
     uint256 public hatchTime = 360 days;
     uint256 public HatchTime;
     uint256 public tokenCounter;
@@ -1896,11 +1895,59 @@ contract TeggNFTTheta is TNT721, Ownable {
         emit LaidEggNFT(tokenCounter, HatchTime);
         _safeMint(msg.sender, tokenCounter);
         tokenCounter = tokenCounter + 1;
-        teggNFTz.push(tokenCounter); // theres a better way to do this
     }
 
     function getTokenCounter() public view returns (uint256) {
         return tokenCounter;
+    }
+
+    // possibly a better way
+    function ownerOfTokenIds(address tokenOwner)
+        external
+        view
+        returns (uint256[] memory)
+    {
+        uint256[] memory result = new uint256[](balanceOf(tokenOwner));
+        uint256 counter = 0;
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            if (ownerOf(i) == tokenOwner) {
+                result[counter] = i;
+                counter++;
+            }
+        }
+        return result;
+    }
+
+    function ownerOfTokenURIs(address tokenOwner)
+        external
+        view
+        returns (string[] memory)
+    {
+        string[] memory result = new string[](balanceOf(tokenOwner));
+        uint256 counter = 0;
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            if (ownerOf(i) == tokenOwner) {
+                result[counter] = tokenURI(i);
+                counter++;
+            }
+        }
+        return result;
+    }
+
+    function allTokenTokenURIs() external view returns (string[] memory) {
+        string[] memory result = new string[](tokenCounter);
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            result[i] = tokenURI(i);
+        }
+        return result;
+    }
+
+    function allTokenArray() external view returns (uint256[] memory) {
+        uint256[] memory result = new uint256[](tokenCounter);
+        for (uint256 i = 0; i < tokenCounter; i++) {
+            result[i] = i;
+        }
+        return result;
     }
 
     // You could also just upload the raw SVG and have solildity convert it!

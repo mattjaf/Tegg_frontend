@@ -69,7 +69,7 @@ module.exports = {
         },
         theta_testnet: {
             url: 'https://eth-rpc-api-testnet.thetatoken.org/rpc',
-            // accounts: [PRIVATE_KEY],
+            accounts: [PRIVATE_KEY],
             // accounts: {
             //    mnemonic: 'tiger age off bottom leader only ball lonely lonely require food fiction',
             // },

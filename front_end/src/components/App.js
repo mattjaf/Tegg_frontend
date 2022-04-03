@@ -4,6 +4,7 @@ import detectEtherumProvider from "@metamask/detect-provider";
 import TeggNFT from "../abi/TeggNFTTheta.json"
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 import './App.css';
+import axios from 'axios';
 
 
 class App extends Component {
@@ -51,22 +52,24 @@ class App extends Component {
       //grab the total supply on the front end and log the results
       // go to web3 doc and read up on methods and call
 
+      const teggNFTs = await contract.methods.allTokenTokenURIs().call()
+
       const totalSupply = await contract.methods.totalSupply().call()
       this.setState({ totalSupply })
       console.log(this.state.totalSupply)
       //set up an array to keep track of tokens
       for (let i = 1; i <= totalSupply; i++) { //this is listing an array of minted tokens
-        // const TeggNFT = await contract.methods.teggNFTz(i - 1).call()
-        const tokenURI = await contract.methods.tokenURI(i - 1).call()
-        const imageURI = await tokenURI.image
+        const TeggNFT = await axios.get(teggNFTs[i - 1])
         // how should we handle the state on the front end
         this.setState({
-          teggNFTz: [...this.state.teggNFTz, imageURI] // spread operator
+          teggNFTs: [...this.state.teggNFTs, TeggNFT] // spread operator
         }) // pretty sure the array could be done on the front end
 
       }
-      console.log(this.state.tokenURI)
-      console.log(this.state.teggNFTz)
+      // const meta = await axios.get(teggNFTs[0])
+      console.log(this.state.teggNFTs)
+      // console.log(meta.data.image)
+
     } else {
       window.alert('Smart contract not deployed')
     }
@@ -91,14 +94,17 @@ class App extends Component {
       account: '',
       contract: null,
       totalSupply: 0,
-      teggNFTz: []
+      teggNFTz: [],
+      teggNFTs: [],
+      tokenURI: '',
+      imageURI: '',
+
     }
   }
 
   render() {
     return (
       <div className="container-filled">
-        {console.log(this.state.teggNFTz)}
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowwrap p-0 shadow">
           <div className="nav-brand col-sm-3 col-md-3 mr-0" style={{ color: 'black' }}>
 
@@ -122,23 +128,25 @@ class App extends Component {
               <div className='content mr-auto ml-auto'
                 style={{ opacity: '0.8' }}>
                 <h1 style={{ color: 'white' }}>
-                  Theta Egg - NFT Marketplace</h1>
+                  Theta Hatchery</h1>
 
               </div>
             </main>
           </div>
           <hr></hr>
           <div className="row textCenter">
-            {this.state.teggNFTz.map((key, imageURI) => {
+            {this.state.teggNFTs.map((teggNFT, key) => {
+              { console.log(this.state.teggNFTs[0].image) }
               return (
                 <div>
                   <div>
+
                     <MDBCard className="token img" style={{ maxWidth: '22rem' }}>
-                      <MDBCardImage src={imageURI} position='top' height='250rem' style={{ marginRight: '4px' }} />
+                      <MDBCardImage src={teggNFT.data.image} position='top' height='250rem' style={{ marginRight: '4px' }} />
                       <MDBCardBody>
                         <MDBCardTitle> Theta Eggs</MDBCardTitle>
-                        <MDBCardText> These are automatic hatching theta eggs stored 100% on theta blockchain. They will hatch in a year or for a small fee. </MDBCardText>
-                        <MDBBtn href={imageURI}>Download</MDBBtn>
+                        <MDBCardText> These are automatic hatching theta eggs stored 100% on-chain. They will hatch in a year or for a small fee. </MDBCardText>
+                        <MDBBtn href={teggNFT.data.image}>Hatch</MDBBtn>
                       </MDBCardBody>
                     </MDBCard>
                   </div>
