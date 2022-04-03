@@ -34,7 +34,7 @@ class App extends Component {
 
   async loadBlockchainData() {
     const web3 = window.web3
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.eth.requestAccounts();
     this.setState({ account: accounts[0] })
     console.log(this.state.account)
 
@@ -45,7 +45,8 @@ class App extends Component {
       const abi = TeggNFT.abi;
       const address = TeggNFT.address;
       const contract = new web3.eth.Contract(abi, address)
-      this.setState({ contract })
+      this.contract = contract;
+      this.setState({ contract });
       console.log(this.state.contract);
 
       // call the total supply of our NFTs
@@ -98,7 +99,6 @@ class App extends Component {
       teggNFTs: [],
       tokenURI: '',
       imageURI: '',
-
     }
   }
 
@@ -146,7 +146,10 @@ class App extends Component {
                       <MDBCardBody>
                         <MDBCardTitle> Theta Eggs</MDBCardTitle>
                         <MDBCardText> These are automatic hatching theta eggs stored 100% on-chain. They will hatch in a year or for a small fee. </MDBCardText>
-                        <MDBBtn href={teggNFT.data.image}>Hatch</MDBBtn>
+                        <MDBBtn onClick={() => {
+                          console.warn(`using ${this.state.account}`);
+                          this.state.contract.methods.hatchEgg(key).send({ from: this.state.account });
+                        }} href={teggNFT.data.image}>Hatch</MDBBtn>
                       </MDBCardBody>
                     </MDBCard>
                   </div>
