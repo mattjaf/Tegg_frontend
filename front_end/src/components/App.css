@@ -9,6 +9,11 @@ body {
   
 }
 
+.banner-img {
+  height:100%;
+  width:100%
+}
+
 @keyframes gradientBG {
   0% {
       background-position: 0% 50%;

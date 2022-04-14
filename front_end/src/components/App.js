@@ -5,6 +5,8 @@ import TeggNFT from "../abi/TeggNFTTheta.json"
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 import './App.css';
 import axios from 'axios';
+import './banner2.jpg';
+import ThetaWalletConnect from "@thetalabs/theta-wallet-connect";
 
 
 class App extends Component {
@@ -17,6 +19,7 @@ class App extends Component {
   // first up is to detect ethereum provider
   async loadWeb3() {
     const provider = await detectEtherumProvider();
+    // const provider = await ThetaWalletConnect.connect()
 
     // modern browsers
     // if tgere is a provider then lets
@@ -35,6 +38,7 @@ class App extends Component {
   async loadBlockchainData() {
     const web3 = window.web3
     const accounts = await web3.eth.requestAccounts();
+    // const accounts = await ThetaWalletConnect.requestAccounts();
     this.setState({ account: accounts[0] })
     console.log(this.state.account)
 
@@ -79,23 +83,21 @@ class App extends Component {
 
 
   // with minting we are sending infromation and we need to specify the account
-  /*
-    mint = (kryptoBird) => {
-      this.state.contract.methods.mint(kryptoBird).send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-          this.setState({
-            kryptoBirdz: [...this.state.kryptoBirdz, KryptoBird]
-          })
-        })
-    }
-  */
+
+  // hatchEggNFT = (i) => {
+  //  this.state.contract.methods.hatchEggNFT(i).send({ from: this.state.account })
+  //    .once('receipt', (receipt) => {
+  //      this.setState({
+  //        teggNFTs: [...this.state.teggNFTs, TeggNFT]
+  //      })
+  //    })
+  //}
   constructor(props) {
     super(props);
     this.state = {
       account: '',
       contract: null,
       totalSupply: 0,
-      teggNFTz: [],
       teggNFTs: [],
       tokenURI: '',
       imageURI: '',
@@ -108,7 +110,7 @@ class App extends Component {
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowwrap p-0 shadow">
           <div className="nav-brand col-sm-3 col-md-3 mr-0" style={{ color: 'black' }}>
 
-            Theta Egg NFTs (Auto-hatching Tokens)
+            Theta Egg NFTs (Automatic hatching Tokens!)
           </div>
           <ul className="navbar-nav px-3">
             <li className='nav-item text-nowrap
@@ -128,8 +130,12 @@ class App extends Component {
               <div className='content mr-auto ml-auto'
                 style={{ opacity: '0.8' }}>
                 <h1 style={{ color: 'white' }}>
-                  Theta Hatchery</h1>
 
+                  <div classname="img-container" position='center'>
+                    <img className="banner-img" alt="." src={'banner2.jpg'} size='100%' />
+                  </div>
+                  Please make sure you have metamask on the Theta Test network.
+                </h1>
               </div>
             </main>
           </div>
@@ -149,7 +155,11 @@ class App extends Component {
                         <MDBBtn onClick={() => {
                           console.warn(`using ${this.state.account}`);
                           this.state.contract.methods.hatchEgg(key).send({ from: this.state.account });
-                        }} href={teggNFT.data.image}>Hatch</MDBBtn>
+                        }} >Hatch</MDBBtn>
+                        <MDBBtn onClick={() => {
+                          console.warn(`using ${this.state.account}`);
+                          this.state.contract.methods.ResetTimer(key).send({ from: this.state.account });
+                        }}>Reset test</MDBBtn>
                       </MDBCardBody>
                     </MDBCard>
                   </div>
