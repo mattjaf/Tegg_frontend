@@ -5,6 +5,7 @@
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
     "@openzeppelin/contracts": "^4.3.1",
+    "@thetalabs/theta-js": "0.0.67",
     "@thetalabs/theta-wallet-connect": "0.0.18",
     "axios": "^0.26.1",
     "babel-polyfill": "6.26.0",

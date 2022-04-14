@@ -5,8 +5,9 @@ import TeggNFT from "../abi/TeggNFTTheta.json"
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
 import './App.css';
 import axios from 'axios';
-import './banner2.jpg';
+// import './banner2.jpg';
 import ThetaWalletConnect from "@thetalabs/theta-wallet-connect";
+import * as thetajs from "@thetalabs/theta-js";
 
 
 class App extends Component {
@@ -19,7 +20,8 @@ class App extends Component {
   // first up is to detect ethereum provider
   async loadWeb3() {
     const provider = await detectEtherumProvider();
-    // const provider = await ThetaWalletConnect.connect()
+    //const chainId = thetajs.networks.ChainIds.Testnet;
+    // const provider = new thetajs.providers.HttpProvider();
 
     // modern browsers
     // if tgere is a provider then lets
@@ -38,7 +40,7 @@ class App extends Component {
   async loadBlockchainData() {
     const web3 = window.web3
     const accounts = await web3.eth.requestAccounts();
-    // const accounts = await ThetaWalletConnect.requestAccounts();
+    //const accounts = await ThetaWalletConnect.requestAccounts();
     this.setState({ account: accounts[0] })
     console.log(this.state.account)
 
@@ -49,9 +51,12 @@ class App extends Component {
       const abi = TeggNFT.abi;
       const address = TeggNFT.address;
       const contract = new web3.eth.Contract(abi, address)
+      // const provider = new thetajs.providers.HttpProvider();
+      // const contract = new thetajs.Contract(address, abi, provider);
       this.contract = contract;
       this.setState({ contract });
       console.log(this.state.contract);
+      // const signer = contract.connect(wallet);
 
       // call the total supply of our NFTs
       //grab the total supply on the front end and log the results
@@ -78,7 +83,46 @@ class App extends Component {
     } else {
       window.alert('Smart contract not deployed')
     }
+
+    var yourDateToGo = new Date(); //here you're making new Date object
+    var now = Math.round((new Date()).getTime() / 1000);
+    var rem = (((await this.state.contract.methods.tokenIdToHatchTimer(0 /*key*/).call() - now) / 86400));
+    yourDateToGo.setDate(yourDateToGo.getDate() + rem); //your're setting date in this object 1 day more from now
+
+    //you can change number of days to go by putting any number in place of 1
+
+    var timing = setInterval( // you're making an interval - a thing, that is updating content after number of miliseconds, that you're writing after comma as second parameter
+      function () {
+
+        var currentDate = new Date().getTime(); //same thing as above
+        var timeLeft = yourDateToGo - currentDate; //difference between time you set and now in miliseconds
+
+
+
+        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24)); //conversion miliseconds on days 
+        if (days < 10) days = "0" + days; //if number of days is below 10, programm is writing "0" before 9, that's why you see "09" instead of "9"
+        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); //conversion miliseconds on hours
+        if (hours < 10) hours = "0" + hours;
+        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)); //conversion miliseconds on minutes 
+        if (minutes < 10) minutes = "0" + minutes;
+        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);//conversion miliseconds on seconds
+        if (seconds < 10) seconds = "0" + seconds;
+        // 1680856964
+        // 1649784856
+        //31026345
+        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s"; // putting number of days, hours, minutes and seconds in div, 
+        //which id is countdown
+
+        if (timeLeft <= 0) {
+          clearInterval(timing);
+          document.getElementById("countdown").innerHTML = "Hatched"; //if there's no time left, programm in this 2 lines is clearing interval (nothing is counting now) 
+          //and you see "It's over" instead of time left
+        }
+      }, 1000);
+
+
   }
+
 
 
 
@@ -148,6 +192,7 @@ class App extends Component {
                   <div>
 
                     <MDBCard className="token img" style={{ maxWidth: '22rem' }}>
+                      <MDBCardTitle className="row justify-content-center border rounded-pill" id="countdown" ></MDBCardTitle>
                       <MDBCardImage src={teggNFT.data.image} position='top' height='250rem' style={{ marginRight: '4px' }} />
                       <MDBCardBody>
                         <MDBCardTitle> Theta Eggs</MDBCardTitle>
