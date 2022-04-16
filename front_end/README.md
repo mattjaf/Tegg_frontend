@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Tegg_frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## current things being worked on:
 
-## Available Scripts
+1. fixing the countdown timer to display on all the tokens with the data associated with the tokenId
+```
+mapping(uint256 => uint256) public tokenIdToHatchTimer;
+```
 
-In the project directory, you can run:
 
-### `npm start`
+2. Solution to tokenId 0's hatch function breaking the site with the suspected large URI
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+possible solution: sending the token to another address and displaying the tokens from the wallet of the token owner
+    
+    -The key maps to the index [0,1,2] when the tokenId are [1,2,3]
+        -TEMPORARY FIX: (key+1)
+            **issue: if the owner has tokenIds that are not in sequential order, it will break**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+proper fix IMO
+```
+const keys = await this.setState.contract.methods.ownerOfTokenIds("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call()
+```
+ then setting the function to the key elements
+ ```
+ keys[key]
+ ```
+    **issue: keys is not defined**
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. possibly have an alert or some form of prompt that pops up that makes sure the user connects to theta testnet
 
-### `npm run build`
+4. pushing it to Digital Ocean
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Please incorperate some cool stuff
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## optional :
 
-### `npm run eject`
+1. Having multiple wallets possibly using web3Modals or using ethereum boiler plate
+    **issue: is theta wallet even web3 compatible?**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+helpful links:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[ethereum boilerplate](https://github.com/mattjaf/ethereum-boilerplate)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+[web3 react](https://github.com/mattjaf/web3-react)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+[web3modal](https://github.com/mattjaf/web3modal)
 
-## Learn More
+ethers
+web3reactProvider from @web3-react/core
+web3provider from @ethersproject/providers (minimalversion of ethers)
+to wrap all the code so the pages know the state of the providers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[thetajs](https://docs.thetatoken.org/docs/theta-js-sdk-getting-started)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[theta-wallet-connect](https://docs.thetatoken.org/docs/browser-extension-wallet-developer-guide)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -62,13 +62,13 @@ class App extends Component {
       //grab the total supply on the front end and log the results
       // go to web3 doc and read up on methods and call
 
-      const teggNFTs = await contract.methods.allTokenTokenURIs().call()
+      const teggNFTs = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call()
 
-      const totalSupply = await contract.methods.totalSupply().call()
-      this.setState({ totalSupply })
-      console.log(this.state.totalSupply)
+      const balanceOf = await contract.methods.balanceOf("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call()
+      this.setState({ balanceOf })
+      console.log(this.state.balanceOf)
       //set up an array to keep track of tokens
-      for (let i = 1; i <= totalSupply; i++) { //this is listing an array of minted tokens
+      for (let i = 1; i <= balanceOf; i++) { //this is listing an array of minted tokens
         const TeggNFT = await axios.get(teggNFTs[i - 1])
         // how should we handle the state on the front end
         this.setState({
@@ -79,6 +79,10 @@ class App extends Component {
       // const meta = await axios.get(teggNFTs[0])
       console.log(this.state.teggNFTs)
       // console.log(meta.data.image)
+      const keys = await this.state.contract.methods.ownerOfTokenIds("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call()
+      console.log(keys)
+      console.log(keys[2])
+
 
     } else {
       window.alert('Smart contract not deployed')
@@ -86,8 +90,8 @@ class App extends Component {
 
     var yourDateToGo = new Date(); //here you're making new Date object
     var now = Math.round((new Date()).getTime() / 1000);
-    var rem = (((await this.state.contract.methods.tokenIdToHatchTimer(0 /*key*/).call() - now) / 86400));
-    yourDateToGo.setDate(yourDateToGo.getDate() + rem); //your're setting date in this object 1 day more from now
+    var rem = (((await this.state.contract.methods.tokenIdToHatchTimer(1/*key*/).call() - now) / 86400));
+    yourDateToGo.setDate(yourDateToGo.getDate() + rem + 1); //your're setting date in this object 1 day more from now
 
     //you can change number of days to go by putting any number in place of 1
 
@@ -107,15 +111,13 @@ class App extends Component {
         if (minutes < 10) minutes = "0" + minutes;
         var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);//conversion miliseconds on seconds
         if (seconds < 10) seconds = "0" + seconds;
-        // 1680856964
-        // 1649784856
-        //31026345
+
         document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s"; // putting number of days, hours, minutes and seconds in div, 
         //which id is countdown
 
         if (timeLeft <= 0) {
           clearInterval(timing);
-          document.getElementById("countdown").innerHTML = "Hatched"; //if there's no time left, programm in this 2 lines is clearing interval (nothing is counting now) 
+          document.getElementById("countdown").innerHTML = "Hatched!"; //if there's no time left, programm in this 2 lines is clearing interval (nothing is counting now) 
           //and you see "It's over" instead of time left
         }
       }, 1000);
@@ -124,8 +126,7 @@ class App extends Component {
   }
 
 
-
-
+  // const keys = await this.setState.contract.methods.ownerOfTokenIds("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
   // with minting we are sending infromation and we need to specify the account
 
   // hatchEggNFT = (i) => {
@@ -145,6 +146,9 @@ class App extends Component {
       teggNFTs: [],
       tokenURI: '',
       imageURI: '',
+      balanceOf: 0,
+      keys: [],
+
     }
   }
 
@@ -175,7 +179,7 @@ class App extends Component {
                 style={{ opacity: '0.8' }}>
                 <h1 style={{ color: 'white' }}>
 
-                  <div classname="img-container" position='center'>
+                  <div className="img-container" position='center'>
                     <img className="banner-img" alt="." src={'banner2.jpg'} size='100%' />
                   </div>
                   Please make sure you have metamask on the Theta Test network.
@@ -192,18 +196,18 @@ class App extends Component {
                   <div>
 
                     <MDBCard className="token img" style={{ maxWidth: '22rem' }}>
-                      <MDBCardTitle className="row justify-content-center border rounded-pill" id="countdown" ></MDBCardTitle>
+                      <MDBCardTitle className="row justify-content-center border rounded-pill" id="countdown" >hi</MDBCardTitle>
                       <MDBCardImage src={teggNFT.data.image} position='top' height='250rem' style={{ marginRight: '4px' }} />
                       <MDBCardBody>
                         <MDBCardTitle> Theta Eggs</MDBCardTitle>
-                        <MDBCardText> These are automatic hatching theta eggs stored 100% on-chain. They will hatch in a year or for a small fee. </MDBCardText>
+                        <MDBCardText> These are automatic hatching theta eggs stored 100% on-chain. They will hatch in 360 days or for a small fee. </MDBCardText>
                         <MDBBtn onClick={() => {
                           console.warn(`using ${this.state.account}`);
-                          this.state.contract.methods.hatchEgg(key).send({ from: this.state.account });
+                          this.state.contract.methods.hatchEgg(key + 1).send({ from: this.state.account });
                         }} >Hatch</MDBBtn>
                         <MDBBtn onClick={() => {
                           console.warn(`using ${this.state.account}`);
-                          this.state.contract.methods.ResetTimer(key).send({ from: this.state.account });
+                          this.state.contract.methods.ResetTimer(key + 1).send({ from: this.state.account });
                         }}>Reset test</MDBBtn>
                       </MDBCardBody>
                     </MDBCard>
