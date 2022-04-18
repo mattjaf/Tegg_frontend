@@ -1,16 +1,32 @@
 import React, {Component} from "react";
 
 class HeaderSection extends Component {
-
-  async componentDidMount() {
-
-  }
-
+  /**
+   * @param {{
+   *   account: string,
+   * }} props
+   */
   constructor(props) {
     super(props);
+    /**
+     *
+     * @type {{
+     *   account: string,
+     * }}
+     */
     this.state = {
       account: props.account,
     }
+  }
+
+  /**
+   *
+   * @param {{
+   *   account: string
+   * }} nextProps
+   */
+  componentWillReceiveProps(nextProps){
+    this.setState({account: nextProps.account});
   }
 
   render() {
@@ -21,14 +37,15 @@ class HeaderSection extends Component {
             Theta Egg NFTs (Automatic hatching Tokens!)
           </div>
           <div className="nav-info-section">
-            {this.state.account}
+            {this.state.account && <span>Account: <b>{this.state.account}</b></span>}
           </div>
         </nav>
-        <div className="">
-          <div className="">
-            <div className="hero-image-container">
-              <img className="hero-image" alt="." src={'banner2.png'} />
-            </div>
+        <div className="navbar-spacer" style={{height: "64px"}}/>
+        <div className="hero-section">
+          <div className="hero-image-container">
+            <img className="hero-image" alt="." src={'banner2.png'} />
+          </div>
+          <div className="hero-section-notes">
             Please make sure you have metamask on the Theta Test network.
           </div>
         </div>
