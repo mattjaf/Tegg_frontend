@@ -77,7 +77,7 @@ class App extends Component {
     return (
       <div className="app-container">
         <HeaderSection account={this.state.account}/>
-        <div className="content">
+        <div className="app-content">
           {this.state.teggNFTs.length === 0 && (
             <h1 style={{padding: '30px', textAlign: 'center'}}>Loading your NFTs!</h1>
           )}

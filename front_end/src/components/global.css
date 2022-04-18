@@ -36,6 +36,10 @@ body {
     text-align: center;
 }
 
+.app-content {
+    text-align: center;
+}
+
 .nft-card {
     display: inline-block;
 }
