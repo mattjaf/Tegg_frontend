@@ -32,9 +32,18 @@ body {
     }
 }
 
+/** Start HeaderSection */
 .header-section {
     text-align: center;
 }
+.navbar {
+    background-color: lightblue;
+    border-bottom: 1px lightgray solid;
+}
+.hero-section {
+    padding: 16px 0;
+}
+/** End HeaderSection */
 
 .app-content {
     text-align: center;
@@ -44,7 +53,7 @@ body {
     display: inline-block;
 }
 
-/** Egg Card */
+/** Start EggCard */
 .egg-card {
     width: 300px;
     box-shadow: 0 8px 16px rgba(5, 5, 5, 0.3);
@@ -56,4 +65,4 @@ body {
 .egg-card-image {
     height: 200px;
 }
-/** Egg Card */
+/** End EggCard */
