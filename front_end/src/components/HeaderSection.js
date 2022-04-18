@@ -44,7 +44,9 @@ class HeaderSection extends Component {
           <div className="hero-image-container">
             <img className="hero-image" alt="." src={'banner2.png'} />
           </div>
-          Please make sure you have metamask on the Theta Test network.
+          <div className="hero-section-notes">
+            Please make sure you have metamask on the Theta Test network.
+          </div>
         </div>
       </div>
     )

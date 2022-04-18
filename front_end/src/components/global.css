@@ -41,7 +41,15 @@ body {
     border-bottom: 1px lightgray solid;
 }
 .hero-section {
-    padding: 16px 0;
+    padding: 16px;
+}
+.hero-image-container {
+    padding: 0 0 16px 0;
+}
+.hero-section-notes {
+    display: inline-block;
+    background-color: lightblue;
+    padding: 4px 8px;
 }
 /** End HeaderSection */
 
