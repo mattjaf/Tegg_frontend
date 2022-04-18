@@ -1,0 +1,55 @@
+@supports (scrollbar-gutter: stable) {
+    html {
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+.banner-img {
+    height: 100%;
+    width: 100%
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+.header-section {
+    text-align: center;
+}
+
+.nft-card {
+    display: inline-block;
+}
+
+/** Egg Card */
+.egg-card {
+    width: 300px;
+    box-shadow: 0 8px 16px rgba(5, 5, 5, 0.3);
+    padding: 2px 16px;
+    margin: 16px;
+    border-radius: 8px;
+}
+
+.egg-card-image {
+    height: 200px;
+}
+/** Egg Card */
