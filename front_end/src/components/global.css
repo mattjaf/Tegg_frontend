@@ -39,6 +39,10 @@ body {
 .navbar {
     background-color: lightblue;
     border-bottom: 1px lightgray solid;
+    box-shadow:  0 1px 5px lightgrey;
+    height: 64px;
+    position: fixed;
+    width: 100%;
 }
 .hero-section {
     padding: 16px;
