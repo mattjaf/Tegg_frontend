@@ -8,6 +8,7 @@ class EggCard extends Component {
    *   contractMethods: object,
    *   nft: object,
    *   nftIndex: number,
+   *   hatched: boolean,
    * }} props
    */
   constructor(props) {
@@ -17,8 +18,12 @@ class EggCard extends Component {
       account: props.account,
       contractMethods: props.contractMethods,
       nft: props.nft,
-      nftIndex: props.nftIndex
+      nftIndex: props.nftIndex,
+      hatched: false,
     }
+
+    console.log(`Rendering NFT object for Token Index ${this.state.nftIndex}`)
+    console.log(props);
   }
 
   render() {
@@ -32,12 +37,17 @@ class EggCard extends Component {
             These are automatic hatching theta eggs stored 100% on-chain.
             They will hatch in 360 days or for a small fee.
           </MDBCardText>
-          <MDBBtn onClick={() => {
-            this.state.contractMethods.hatchEgg(this.state.nftIndex).send({from: this.state.account});
-          }}>Hatch</MDBBtn>
-          <MDBBtn onClick={() => {
+          <MDBBtn className="egg-card-button" onClick={async () => {
+            await this.state.contractMethods.hatchEgg(this.state.nftIndex).send({from: this.state.account});
+            this.setState({hatched: true});
+          }}>
+            {this.state.hatched ? 'Hatched!' : 'Hatch'}
+          </MDBBtn>
+          <MDBBtn className="egg-card-button" onClick={async () => {
             this.state.contractMethods.ResetTimer(this.state.nftIndex).send({from: this.state.account});
-          }}>Reset test</MDBBtn>
+          }}>
+            Reset test
+          </MDBBtn>
         </MDBCardBody>
       </MDBCard>
     )

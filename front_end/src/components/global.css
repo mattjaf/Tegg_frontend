@@ -77,4 +77,8 @@ body {
 .egg-card-image {
     height: 200px;
 }
+
+.egg-card-button {
+    margin: 0 8px;
+}
 /** End EggCard */

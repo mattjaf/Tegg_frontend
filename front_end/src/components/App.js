@@ -60,7 +60,6 @@ class App extends Component {
     //grab the total supply on the front end and log the results
     // go to web3 doc and read up on methods and call
     const teggNFTs = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
-
     const balanceOf = await contract.methods.balanceOf("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
     this.setState({balanceOf});
     //set up an array to keep track of tokens
