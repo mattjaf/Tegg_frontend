@@ -1,13 +1,19 @@
 import React, {Component} from "react";
 
 class HeaderSection extends Component {
-
-  async componentDidMount() {
-
-  }
-
+  /**
+   * @param {{
+   *   account: string,
+   * }} props
+   */
   constructor(props) {
     super(props);
+    /**
+     *
+     * @type {{
+     *   account: string,
+     * }}
+     */
     this.state = {
       account: props.account,
     }
