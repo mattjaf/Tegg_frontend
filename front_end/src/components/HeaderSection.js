@@ -19,6 +19,16 @@ class HeaderSection extends Component {
     }
   }
 
+  /**
+   *
+   * @param {{
+   *   account: string
+   * }} nextProps
+   */
+  componentWillReceiveProps(nextProps){
+    this.setState({account: nextProps.account});
+  }
+
   render() {
     return (
       <div className="header-section">
