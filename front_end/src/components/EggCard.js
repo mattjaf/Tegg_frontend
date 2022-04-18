@@ -4,6 +4,7 @@ import {MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle} f
 class EggCard extends Component {
   /**
    * @param {{
+   *   account: string,
    *   contractMethods: object,
    *   nft: object,
    *   nftIndex: number,
@@ -13,6 +14,7 @@ class EggCard extends Component {
     super(props);
 
     this.state = {
+      account: props.account,
       contractMethods: props.contractMethods,
       nft: props.nft,
       nftIndex: props.nftIndex
@@ -31,10 +33,10 @@ class EggCard extends Component {
             They will hatch in 360 days or for a small fee.
           </MDBCardText>
           <MDBBtn onClick={() => {
-            this.state.contract.methods.hatchEgg(this.state.nftIndex).send({from: this.state.account});
+            this.state.contractMethods.hatchEgg(this.state.nftIndex).send({from: this.state.account});
           }}>Hatch</MDBBtn>
           <MDBBtn onClick={() => {
-            this.state.contract.methods.ResetTimer(this.state.nftIndex).send({from: this.state.account});
+            this.state.contractMethods.ResetTimer(this.state.nftIndex).send({from: this.state.account});
           }}>Reset test</MDBBtn>
         </MDBCardBody>
       </MDBCard>
