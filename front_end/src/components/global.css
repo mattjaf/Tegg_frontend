@@ -35,6 +35,8 @@ body {
 /** Start HeaderSection */
 .header-section {
     text-align: center;
+    z-index: 1;
+    position: relative;
 }
 .navbar {
     background-color: lightblue;
