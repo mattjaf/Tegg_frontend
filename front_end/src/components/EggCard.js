@@ -19,7 +19,7 @@ class EggTimerContainer extends Component {
   }
 }
 
-const timerMessageRenderer = ({ hours, minutes, seconds, completed }) => {
+const timerMessageRenderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
     return <EggTimerContainer />;
@@ -27,7 +27,7 @@ const timerMessageRenderer = ({ hours, minutes, seconds, completed }) => {
     // Render a countdown
     return (
       <div className="timer-container">
-        <span>{hours}:{minutes}:{seconds}</span>
+        <span>{days}:{hours}:{minutes}:{seconds}</span>
       </div>);
   }
 };
