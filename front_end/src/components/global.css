@@ -32,6 +32,19 @@ body {
     }
 }
 
+.app-content {
+    text-align: center;
+}
+
+.nft-card {
+    display: inline-block;
+}
+
+.error-container {
+    background-color: lightcoral;
+    padding: 16px;
+}
+
 /** Start HeaderSection */
 .header-section {
     text-align: center;
@@ -58,14 +71,6 @@ body {
     padding: 4px 8px;
 }
 /** End HeaderSection */
-
-.app-content {
-    text-align: center;
-}
-
-.nft-card {
-    display: inline-block;
-}
 
 /** Start EggCard */
 .egg-card {

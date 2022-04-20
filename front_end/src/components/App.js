@@ -20,6 +20,7 @@ class App extends Component {
       imageURI: '',
       balanceOf: 0,
       keys: [],
+      error: null,
     }
   }
 
@@ -59,16 +60,20 @@ class App extends Component {
     // call the total supply of our NFTs
     //grab the total supply on the front end and log the results
     // go to web3 doc and read up on methods and call
-    const teggNFTs = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
-    const balanceOf = await contract.methods.balanceOf("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
-    this.setState({balanceOf});
-    //set up an array to keep track of tokens
-    for (let i = 1; i <= balanceOf; i++) { //this is listing an array of minted tokens
-      const teggNftResponse = await axios.get(teggNFTs[i - 1])
-      // how should we handle the state on the front end
-      this.setState({
-        teggNFTs: [...this.state.teggNFTs, teggNftResponse] // spread operator
-      }); // pretty sure the array could be done on the front end
+    try {
+      const teggNFTs = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
+      const balanceOf = await contract.methods.balanceOf("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
+      this.setState({balanceOf});
+      //set up an array to keep track of tokens
+      for (let i = 1; i <= balanceOf; i++) { //this is listing an array of minted tokens
+        const teggNftResponse = await axios.get(teggNFTs[i - 1])
+        // how should we handle the state on the front end
+        this.setState({
+          teggNFTs: [...this.state.teggNFTs, teggNftResponse] // spread operator
+        }); // pretty sure the array could be done on the front end
+      }
+    } catch (e) {
+      this.setState({error: e});
     }
   }
 
@@ -77,7 +82,13 @@ class App extends Component {
       <div className="app-container">
         <HeaderSection account={this.state.account}/>
         <div className="app-content">
-          {this.state.teggNFTs.length === 0 && (
+          {this.state.error && (
+            <div className="error-container">
+              <p>Ran into an error!</p>
+              <p>{JSON.stringify(this.state.error)}</p>
+            </div>
+          )}
+          {this.state.teggNFTs.length === 0 && !this.state.error && (
             <h1 style={{padding: '30px', textAlign: 'center'}}>Loading your NFTs!</h1>
           )}
           {this.state.teggNFTs.map((teggNFT, key) => {
@@ -86,7 +97,7 @@ class App extends Component {
                 <EggCard contractMethods={this.state.contract.methods}
                          nft={teggNFT}
                          nftIndex={key}
-                         account={this.state.account} />
+                         account={this.state.account}/>
               </div>
             );
           })}
