@@ -32,9 +32,24 @@ body {
     }
 }
 
+.app-content {
+    text-align: center;
+}
+
+.nft-card {
+    display: inline-block;
+}
+
+.error-container {
+    background-color: lightcoral;
+    padding: 16px;
+}
+
 /** Start HeaderSection */
 .header-section {
     text-align: center;
+    z-index: 1;
+    position: relative;
 }
 .navbar {
     background-color: lightblue;
@@ -57,25 +72,33 @@ body {
 }
 /** End HeaderSection */
 
-.app-content {
-    text-align: center;
-}
-
-.nft-card {
-    display: inline-block;
-}
-
 /** Start EggCard */
 .egg-card {
     width: 300px;
     box-shadow: 0 8px 16px rgba(5, 5, 5, 0.3);
-    padding: 2px 16px;
+    padding: 4px 16px;
     margin: 16px;
     border-radius: 8px;
 }
 
+.hatched-message-container {
+    background-color: lightblue;
+    border-radius: 16px;
+    margin: 8px 0 0 0;
+    padding: 8px 0;
+    font-weight: 600;
+}
+
+.timer-container {
+    background-color: lightblue;
+    border-radius: 16px;
+    margin: 8px 0 0 0;
+    padding: 8px 0;
+}
+
 .egg-card-image {
     height: 200px;
+    margin: 16px 0 0 0;
 }
 
 .egg-card-button {
