@@ -21,6 +21,7 @@ class App extends Component {
       balanceOf: 0,
       keys: [],
       error: null,
+      hatchTimestamps: [],
     }
   }
 
@@ -58,22 +59,18 @@ class App extends Component {
     console.log(this.state.account);
 
     // call the total supply of our NFTs
-    //grab the total supply on the front end and log the results
-    // go to web3 doc and read up on methods and call
     try {
-      const teggNFTs = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
-      const balanceOf = await contract.methods.balanceOf("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
-      this.setState({balanceOf});
-      //set up an array to keep track of tokens
-      for (let i = 1; i <= balanceOf; i++) { //this is listing an array of minted tokens
-        const teggNftResponse = await axios.get(teggNFTs[i - 1])
-        // how should we handle the state on the front end
-        this.setState({
-          teggNFTs: [...this.state.teggNFTs, teggNftResponse] // spread operator
-        }); // pretty sure the array could be done on the front end
-      }
-    } catch (e) {
-      this.setState({error: e});
+      const teggNFTUrls = await contract.methods.ownerOfTokenURIs("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call();
+      const teggNFTs = await Promise.all(teggNFTUrls.map((url) => axios.get(url)));
+      // Hatch timestamps in BigNumber
+      const hatchBigNumberTimestamps =
+        await Promise.all(teggNFTUrls.map((_, index) => this.state.contract.methods.tokenIdToHatchTimer(index).call()));
+      this.setState({
+        teggNFTs,
+        // Convert BigNumbers to numbers and then to milliseconds
+        hatchTimestamps: hatchBigNumberTimestamps.map(Number).map((num) => num * 1000 )});
+    } catch (error) {
+      this.setState({error});
     }
   }
 
@@ -96,6 +93,7 @@ class App extends Component {
               <div className="nft-card" key={`teggNFT.data.name_${key}`}>
                 <EggCard contractMethods={this.state.contract.methods}
                          nft={teggNFT}
+                         hatchTimestamp={this.state.hatchTimestamps[key]}
                          nftIndex={key}
                          account={this.state.account}/>
               </div>
