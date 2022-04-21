@@ -19,4 +19,5 @@ artifacts:
   # include all files required to run application
   # notably excluded is node_modules, as this will cause overwrite error on deploy
   files:
-    - './front_end/build'
+    - '**/*'
+  base-directory: 'front_end'
