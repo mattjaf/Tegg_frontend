@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+
+    commands:
+      - cd front_end
+      - npm i -g yarn
+      # install npm
+      - yarn install
+
+  build:
+    commands:
+      - cd front_end
+      # run build script
+      - yarn build
+
+artifacts:
+  # include all files required to run application
+  # notably excluded is node_modules, as this will cause overwrite error on deploy
+  files:
+    - front_end/build
