@@ -6,14 +6,12 @@ phases:
       nodejs: 12
 
     commands:
-      - cd front_end
       - npm i -g yarn
       # install npm
       - yarn install
 
   build:
     commands:
-      - cd front_end
       # run build script
       - yarn build
 
