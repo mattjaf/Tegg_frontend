@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Web3 from "web3";
 import detectEtherumProvider from "@metamask/detect-provider";
 import ThetaEggThetaAbi from "../abi/TeggNFTTheta.json"
@@ -50,12 +50,12 @@ class App extends Component {
     const abi = ThetaEggThetaAbi.abi;
     const address = ThetaEggThetaAbi.address;
     const contract = new window.web3.eth.Contract(abi, address)
-    this.setState({ contract });
+    this.setState({contract});
     console.log(this.state.contract);
 
     const web3 = window.web3;
     const accounts = await web3.eth.requestAccounts();
-    this.setState({ account: accounts[0] });
+    this.setState({account: accounts[0]});
     console.log(this.state.account);
 
     // call the total supply of our NFTs
@@ -76,14 +76,14 @@ class App extends Component {
         hatchTimestamps: hatchBigNumberTimestamps.map(Number).map((num) => num * 1000)
       });
     } catch (error) {
-      this.setState({ error });
+      this.setState({error});
     }
   }
 
   render() {
     return (
       <div className="app-container">
-        <HeaderSection account={this.state.account} />
+        <HeaderSection account={this.state.account}/>
         <div className="app-content">
           {this.state.error && (
             <div className="error-container">
@@ -92,16 +92,16 @@ class App extends Component {
             </div>
           )}
           {this.state.teggNFTs.length === 0 && !this.state.error && (
-            <h1 style={{ padding: '30px', textAlign: 'center' }}>Loading your NFTs!</h1>
+            <h1 style={{padding: '30px', textAlign: 'center'}}>Loading your NFTs!</h1>
           )}
           {this.state.teggNFTs.map((teggNFT, key) => {
             return (
               <div className="nft-card" key={`teggNFT.data.name_${key}`}>
                 <EggCard contractMethods={this.state.contract.methods}
-                  nft={teggNFT}
-                  hatchTimestamp={this.state.hatchTimestamps[key]}
-                  nftIndex={key}
-                  account={this.state.account} />
+                         nft={teggNFT}
+                         hatchTimestamp={this.state.hatchTimestamps[key]}
+                         nftIndex={key}
+                         account={this.state.account}/>
               </div>
             );
           })}
