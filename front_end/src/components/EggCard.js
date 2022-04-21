@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle} from "mdb-react-ui-kit";
+import React, { Component } from "react";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle } from "mdb-react-ui-kit";
 import Countdown from "react-countdown";
 
 class EggTimerContainer extends Component {
@@ -27,7 +27,7 @@ const timerMessageRenderer = ({ days, hours, minutes, seconds, completed }) => {
     // Render a countdown
     return (
       <div className="timer-container">
-        <span>{days}:{hours}:{minutes}:{seconds}</span>
+        <span>{days}d {hours}h {minutes}m {seconds}s</span>
       </div>);
   }
 };
@@ -76,13 +76,13 @@ class EggCard extends Component {
           <MDBBtn
             disabled={this.state.hatched}
             className="egg-card-button" onClick={async () => {
-            await this.state.contractMethods.hatchEgg(this.state.nftIndex).send({from: this.state.account});
-            this.setState({hatched: true});
-          }}>
+              await this.state.contractMethods.hatchEgg(this.state.nftIndex).send({ from: this.state.account });
+              this.setState({ hatched: true });
+            }}>
             {this.state.hatched ? 'Hatched!' : 'Hatch'}
           </MDBBtn>
           <MDBBtn className="egg-card-button" onClick={async () => {
-            this.state.contractMethods.ResetTimer(this.state.nftIndex).send({from: this.state.account});
+            await this.state.contractMethods.ResetTimer(this.state.nftIndex).send({ from: this.state.account });
           }}>
             Reset test
           </MDBBtn>

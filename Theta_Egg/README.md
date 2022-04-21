@@ -1,10 +1,10 @@
 <br/>
 <p align="center">
 <a href="https://ethereum.org/en/" target="_blank">
-<img src="./img/png/thumbsup.png" width="225" alt="Low logo">
+<img src="./img/svg/tegg-2.svg" width="225" alt="Low logo">
 </a>
 <a href="https://ethereum.org/en/" target="_blank">
-<img src="./img/png/thumbsdown.png" width="225" alt="Low logo">
+<img src="./img/svg/tegg-2-2.svg" width="225" alt="Low logo">
 </a>
 </p>
 <br/>
