@@ -8,7 +8,7 @@ phases:
     commands:
       - npm i -g yarn
       # install npm
-      - cd front_end && yarn install
+      - cd front_end && npm install
 
   build:
     commands:
