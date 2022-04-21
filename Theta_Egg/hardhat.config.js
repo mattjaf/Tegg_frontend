@@ -22,6 +22,7 @@ module.exports = {
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
+            // blockGasLimit: 100000000429720 // whatever you want here
             // // If you want to do some forking, uncomment this
             // forking: {
             //   url: MAINNET_RPC_URL
@@ -68,12 +69,15 @@ module.exports = {
             saveDeployments: true,
         },
         theta_testnet: {
+            blockGasLimit: 100000000429720,
             url: 'https://eth-rpc-api-testnet.thetatoken.org/rpc',
             accounts: [PRIVATE_KEY],
             // accounts: {
             //    mnemonic: 'tiger age off bottom leader only ball lonely lonely require food fiction',
             // },
             saveDeployments: true,
+
+
         },
         theta_privatenet: {
             url: 'http://localhost:18888/rpc',

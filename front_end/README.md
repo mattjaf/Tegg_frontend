@@ -47,14 +47,21 @@ helpful links:
 
 [web3modal](https://github.com/mattjaf/web3modal)
 
-ethers
-web3reactProvider from @web3-react/core
-web3provider from @ethersproject/providers (minimalversion of ethers)
-to wrap all the code so the pages know the state of the providers
-
 [thetajs](https://docs.thetatoken.org/docs/theta-js-sdk-getting-started)
 
 [theta-wallet-connect](https://docs.thetatoken.org/docs/browser-extension-wallet-developer-guide)
+
+Things that might help:
+
+ethers
+
+web3reactProvider from @web3-react/core
+
+web3provider from @ethersproject/providers (minimalversion of ethers)
+
+to wrap all the code so the pages know the state of the providers
+
+
 
 
 
