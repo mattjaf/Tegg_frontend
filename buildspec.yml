@@ -8,12 +8,12 @@ phases:
     commands:
       - npm i -g yarn
       # install npm
-      - yarn install
+      - cd front_end && yarn install
 
   build:
     commands:
       # run build script
-      - yarn build
+      - cd front_end && yarn build
 
 artifacts:
   # include all files required to run application
