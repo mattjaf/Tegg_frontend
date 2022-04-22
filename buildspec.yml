@@ -13,7 +13,7 @@ phases:
   build:
     commands:
       # run build script
-      - yarn build && cd build
+      - yarn build
     
 
 artifacts:
@@ -21,4 +21,4 @@ artifacts:
   # notably excluded is node_modules, as this will cause overwrite error on deploy
   files:
     - '**/*'
-  base-directory: build
+  base-directory: './front_end/build'
