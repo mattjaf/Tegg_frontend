@@ -21,5 +21,6 @@ artifacts:
   # notably excluded is node_modules, as this will cause overwrite error on deploy
   files:
     - 'build/**/*'
+    - 'package.json'
     - 'server.js'
   base-directory: './front_end'
