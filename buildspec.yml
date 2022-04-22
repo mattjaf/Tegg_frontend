@@ -13,7 +13,7 @@ phases:
   build:
     commands:
       # run build script
-      - yarn build
+      - yarn build && cd build
 
 artifacts:
   # include all files required to run application
