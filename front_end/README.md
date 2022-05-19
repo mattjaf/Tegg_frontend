@@ -2,41 +2,44 @@
 
 ## current things being worked on:
 
-1. fixing the countdown timer to display on all the tokens with the data associated with the tokenId
-```
-mapping(uint256 => uint256) public tokenIdToHatchTimer;
-```
+1. exporting the on-chain NFTs to another chain
+    -possibly using unstoppable domain names to mask the data URL or masking the redirect that makes function call to the on-chain storage
+
+    "[polygon]" --> _function call_ on HTML page uploaded to IPFS --> masked with a UD --> reminted on "[ethereum]"
+
+    then having the user to send an
+
+2. changing the name to Krypto Egg Gang
+    - changing the banner and adding NFTs
 
 
-2. Solution to tokenId 0's hatch function breaking the site with the suspected large URI
+3. fixing the smart contract
+    - **known issue** the URI's might need a maping
+        --what if the transaction fails while its minting...
+    - adding a struct for meta data 
 
-possible solution: sending the token to another address and displaying the tokens from the wallet of the token owner
-    
-    -The key maps to the index [0,1,2] when the tokenId are [1,2,3]
-        -TEMPORARY FIX: (key+1)
-            **issue: if the owner has tokenIds that are not in sequential order, it will break**
+4. adding an error to tell the user to change networks
 
-proper fix IMO
-```
-const keys = await this.setState.contract.methods.ownerOfTokenIds("0xFc73F357Fb770845063dD42104A6F167fF3aE433").call()
-```
- then setting the function to the key elements
- ```
- keys[key]
- ```
-    **issue: keys is not defined**
+5. incorperating moralis
+    - [react-moralis](https://github.com/MoralisWeb3/react-moralis)
 
+6. incorperating chainlink such as a modular oracle background
 
-3. possibly have an alert or some form of prompt that pops up that makes sure the user connects to theta testnet
+7. deploying to fleek
 
-4. pushing it to Digital Ocean
+8. write more test
+    - hardhat tests
+    Tools to add:
+    - converage
+    - echidna
+    - slither
 
 
 Please incorperate some cool stuff
 
 ## optional :
 
-1. Having multiple wallets possibly using web3Modals or using ethereum boiler plate
+1. Having multiple wallets possibly using web3Modals or using ethereum boiler plate -- moralis seems ideal
     **issue: is theta wallet even web3 compatible?**
 
 helpful links:
@@ -51,7 +54,7 @@ helpful links:
 
 [theta-wallet-connect](https://docs.thetatoken.org/docs/browser-extension-wallet-developer-guide)
 
-Things that might help:
+Things that might helpful:
 
 ethers
 

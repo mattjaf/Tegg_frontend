@@ -9,7 +9,7 @@
 </p>
 <br/>
 
-## ThetaEgg NFT
+## Krypto Egg Gang
 This is a demo repo showing you how to create automatic hatching dynamic NFTs
 
  ## Requirements

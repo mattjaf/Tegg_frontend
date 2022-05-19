@@ -13,8 +13,11 @@ require('dotenv').config()
 const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || process.env.ALCHEMY_MAINNET_RPC_URL || "https://eth-mainnet.alchemyapi.io/v2/your-api-key"
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "https://eth-rinkeby.alchemyapi.io/v2/your-api-key"
 const KOVAN_RPC_URL = process.env.KOVAN_RPC_URL || "https://eth-kovan.alchemyapi.io/v2/your-api-key"
+const POLYGON_RPC_URL = process.env.POLYGON_RPC_URL || process.env.ALCHEMY_POLYGON_MAINNET_RPC_URL || "https://polygon-mainnet.alchemyapi.io/v2/your-api-key"
+const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL || "https://polygon-mumbai.g.alchemyapi.io/v2/your-api-key"
 const MNEMONIC = process.env.MNEMONIC || "your mnemonic"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
+const POLYSCAN_API_KEY = process.env.POLYSCAN_API_KEY || "Your polyscan API key"
 // optional
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "your private key"
 
@@ -22,7 +25,7 @@ module.exports = {
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            // blockGasLimit: 100000000429720 // whatever you want here
+            blockGasLimit: 100000000429720 // whatever you want here
             // // If you want to do some forking, uncomment this
             // forking: {
             //   url: MAINNET_RPC_URL
@@ -76,8 +79,6 @@ module.exports = {
             //    mnemonic: 'tiger age off bottom leader only ball lonely lonely require food fiction',
             // },
             saveDeployments: true,
-
-
         },
         theta_privatenet: {
             url: 'http://localhost:18888/rpc',
@@ -87,11 +88,33 @@ module.exports = {
             //},
             saveDeployments: true,
         },
+        polygon: {
+            url: POLYGON_RPC_URL || "https://rpc-mainnet.maticvigil.com/",
+            // accounts: [PRIVATE_KEY],
+            // accounts: {
+            //     mnemonic: MNEMONIC,
+            // },
+            saveDeployments: true,
+        },
+        mumbai: {
+            blockGasLimit: 100000000429720,
+            url: "https://rpc-mumbai.maticvigil.com/",
+            accounts: [PRIVATE_KEY],
+            //accounts: {
+            //   mnemonic: MNEMONIC,
+            // },
+            saveDeployments: true,
+        },
     },
     etherscan: {
         // Your API key for Etherscan
         // Obtain one at https://etherscan.io/
         apiKey: ETHERSCAN_API_KEY
+    },
+    polyscan: {
+        // Your API key for Etherscan
+        // Obtain one at https://polygonscan.com/
+        apiKey: POLYSCAN_API_KEY
     },
     namedAccounts: {
         deployer: {

@@ -11,34 +11,34 @@ module.exports = async ({
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = await getChainId()
-
+    // 0x630C18Dbeec8c9226127346857Abca9da530b05F contract with 4 mints
     log("----------------------------------------------------")
-    let eggSVG = await fs.readFileSync("./img/svg/thumbsdown.svg", { encoding: "utf8" })
-    let hatchSVG = await fs.readFileSync("./img/svg/thumbsup.svg", { encoding: "utf8" })
+    let eggSVG = await fs.readFileSync("./img/SVG/Test-2.svg", { encoding: "utf8" })
+    let hatchSVG = await fs.readFileSync("./img/SVG/test-2-22.svg", { encoding: "utf8" })
 
-    const teggNFT = await deploy('TeggNFT', {
+    const kryptoEggGang = await deploy('KryptoEggGang', {
         from: deployer,
         log: true
     })
-    log(`You have deployed an NFT contract to ${teggNFT.address}`)
-    const TeggNFT = await ethers.getContractFactory("TeggNFT")
+    log(`You have deployed an NFT contract to ${kryptoEggGang.address}`)
+    const KryptoEggGang = await ethers.getContractFactory("KryptoEggGang")
     const accounts = await hre.ethers.getSigners()
     const signer = accounts[0]
-    const teggNFTContract = new ethers.Contract(teggNFT.address, TeggNFT.interface, signer)
+    const kryptoEggGangContract = new ethers.Contract(kryptoEggGang.address, KryptoEggGang.interface, signer)
     const networkName = networkConfig[chainId]['name']
 
-    log(`Verify with \n yarn hardhat verify --network ${networkName} ${teggNFT.address}`)
+    log(`Verify with \n yarn hardhat verify --network ${networkName} ${kryptoEggGang.address}`)
     log("Adding egg URI...")
-    let tx = await teggNFTContract.addEggSVG(eggSVG)
+    let tx = await kryptoEggGangContract.addEggSVG(eggSVG, { gasLimit: 18000000 })
     await tx.wait(1)
     log("Adding hatch URI...")
-    tx = await teggNFTContract.addHatchSVG(hatchSVG)
+    tx = await kryptoEggGangContract.addHatchSVG(hatchSVG, { gasLimit: 18000000 })
     await tx.wait(1)
     log("Creating NFT...")
-    tx = await teggNFTContract.create()
+    tx = await kryptoEggGangContract.create({ gasLimit: 18000000 })
     await tx.wait(1)
-    log(`You've made your ${await teggNFTContract.getTokenCounter()} NFT!`)
-    log(`Here is the NFT tokenURI: ${await teggNFTContract.tokenURI(0)}`)
+    log(`You've made your ${await kryptoEggGangContract.getTokenCounter()} NFT!`)
+    log(`Here is the NFT tokenURI: ${await kryptoEggGangContract.tokenURI(0)}`)
 }
 
-module.exports.tags = ['all', 'feed', 'main', 'eth']
+module.exports.tags = ['all', 'feed', 'main', 'mumbai']

@@ -6,26 +6,42 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "base64-sol/base64.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract TeggNFT is ERC721, Ownable {
+contract KryptoEggGang is ERC721, Ownable {
     using SafeMath for uint256;
     // using SafeMath32 for uint32;
     // using SafeMath16 for uint16;
 
-    uint256[] public teggNFTz; // theres a better way to do this
     uint256 public hatchTime = 360 days;
     uint256 public HatchTime;
     uint256 public tokenCounter;
     string public eggImageURI;
     string private hatchImageURI;
-    uint256 public hatchFee = 100000000000000000; // 10 tfuel?
+    uint256 public hatchFee = 0; // for presentation
 
     mapping(uint256 => uint256) public tokenIdToHatchTimer;
+    mapping(uint256 => EggMetadata) public tokenIdToEggMetadata;
+    mapping(uint256 => HatchMetadata) private tokenIdToHatchmetadata;
+
+    struct EggMetadata {
+        // pulls data from generative art
+        string name;
+        string discription;
+        string attributes;
+        string eggImageURI;
+    }
+    struct HatchMetadata {
+        // pulls data from generative art
+        string name;
+        string discription;
+        string attributes;
+        string hatchImageURI;
+    }
 
     event LaidEggNFT(uint256 indexed tokenId, uint256 indexed HatchTime);
     // test
     event HatchedEggNFT(uint256 indexed tokenId, uint256 indexed HatchedTime);
 
-    constructor() public ERC721("Theta Egg NFT", "TEGG") {
+    constructor() public ERC721("Krypto Egg Gang", "KEG") {
         tokenCounter = 0;
     }
 
@@ -57,7 +73,8 @@ contract TeggNFT is ERC721, Ownable {
     }
 
     // possibly delete for production version
-    function ResetTimer(uint256 tokenId) external onlyOwner {
+    function ResetTimer(uint256 tokenId) external {
+        // onlyOwner disabled for presentation
         require(
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
@@ -79,10 +96,10 @@ contract TeggNFT is ERC721, Ownable {
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
         );
-        require(
-            msg.sender == ownerOf(tokenId),
-            "Owner does not own this token"
-        );
+        // require( // disable for presentation
+        //     msg.sender == ownerOf(tokenId),
+        //     "Owner does not own this token"
+        // );
         require(msg.value == hatchFee);
         tokenIdToHatchTimer[tokenId] = (0);
         emit HatchedEggNFT(tokenId, block.timestamp);
@@ -104,11 +121,6 @@ contract TeggNFT is ERC721, Ownable {
         emit LaidEggNFT(tokenCounter, HatchTime);
         _safeMint(msg.sender, tokenCounter);
         tokenCounter = tokenCounter + 1;
-        teggNFTz.push(tokenCounter); // theres a better way to do this
-    }
-
-    function getTokenCounter() public view returns (uint256) {
-        return tokenCounter;
     }
 
     // possibly a better way
@@ -127,6 +139,8 @@ contract TeggNFT is ERC721, Ownable {
         }
         return result;
     }
+
+    // possibly add a view function that retuns all address's of token owners
 
     function ownerOfTokenURIs(address tokenOwner)
         external
@@ -160,11 +174,6 @@ contract TeggNFT is ERC721, Ownable {
         return result;
     }
 
-    function TokenTimeRemaining(uint256 tokenId) public view returns (uint256) {
-        uint256 result = tokenIdToHatchTimer[tokenId] - block.timestamp;
-        return result;
-    }
-
     // You could also just upload the raw SVG and have solildity convert it!
     function svgToImageURI(string memory svg)
         public
@@ -181,6 +190,7 @@ contract TeggNFT is ERC721, Ownable {
         return string(abi.encodePacked(baseURL, svgBase64Encoded));
     }
 
+    // possibly add individual metadata attributed to tokenId
     function tokenURI(uint256 tokenId)
         public
         view
@@ -204,7 +214,7 @@ contract TeggNFT is ERC721, Ownable {
                         bytes(
                             abi.encodePacked(
                                 '{"name":"',
-                                "Haching eggs NFT", // You can add whatever name here
+                                "Krypto Egg Gang", // You can add whatever name here
                                 '", "description":"An NFT that that hatches", "attributes":"", "image":"',
                                 imageURI,
                                 '"}'

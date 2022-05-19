@@ -68,7 +68,7 @@ class EggCard extends Component {
         </Countdown>
         <MDBCardImage src={this.state.nft.data.image} className="egg-card-image" />
         <MDBCardBody>
-          <MDBCardTitle>Theta Eggs</MDBCardTitle>
+          <MDBCardTitle>Krypto Eggs</MDBCardTitle>
           <MDBCardText>
             These are automatic hatching theta eggs stored 100% on-chain.
             They will hatch in 360 days or for a small fee.
