@@ -16,7 +16,7 @@ ReactDOM.render((
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/pages/tokenid0" element={<Tokenid0 />} />
+                <Route path="/#/tokenid0" element={<Tokenid0 />} />
             </Routes>
         </BrowserRouter>
     </MoralisProvider>
