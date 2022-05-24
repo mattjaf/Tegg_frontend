@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css'
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MoralisProvider } from 'react-moralis';
 import Tokenid0 from './components/pages/tokenid0';
 
@@ -13,12 +13,12 @@ ReactDOM.render((
         serverUrl="https://sq1cosmtdu4e.usemoralis.com:2053/server"
         appId="hzxvpNx4hB30eoTun2ioSLbmJBdFtNbLZd306Chm"
     >
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/#/tokenid0" element={<Tokenid0 />} />
+                <Route path="/tokenid0" element={<Tokenid0 />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     </MoralisProvider>
 ), document.getElementById('root'));
 
