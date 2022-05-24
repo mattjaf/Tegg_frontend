@@ -70,7 +70,7 @@ class EggCard extends Component {
         <MDBCardBody>
           <MDBCardTitle>Krypto Eggs</MDBCardTitle>
           <MDBCardText>
-            These are automatic hatching theta eggs stored 100% on-chain.
+            These are automatic hatching Krypto eggs stored 100% on-chain.
             They will hatch in 360 days or for a small fee.
           </MDBCardText>
           <MDBBtn

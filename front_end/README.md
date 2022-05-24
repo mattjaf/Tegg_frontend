@@ -29,7 +29,6 @@
 
 8. write more test
     - hardhat tests
-    Tools to add:
     - converage
     - echidna
     - slither

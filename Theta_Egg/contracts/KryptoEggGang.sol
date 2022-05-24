@@ -27,14 +27,14 @@ contract KryptoEggGang is ERC721, Ownable {
         string name;
         string discription;
         string attributes;
-        string eggImageURI;
+        string imageURI;
     }
     struct HatchMetadata {
         // pulls data from generative art
         string name;
         string discription;
         string attributes;
-        string hatchImageURI;
+        string imageURI;
     }
 
     event LaidEggNFT(uint256 indexed tokenId, uint256 indexed HatchTime);
@@ -119,6 +119,8 @@ contract KryptoEggGang is ERC721, Ownable {
         tokenIdToHatchTimer[tokenCounter] = (block.timestamp + hatchTime);
         HatchTime = tokenIdToHatchTimer[tokenCounter];
         emit LaidEggNFT(tokenCounter, HatchTime);
+        tokenIdToEggMetadata[tokenCounter].imageURI = eggImageURI; //
+        tokenIdToHatchmetadata[tokenCounter].imageURI = hatchImageURI; //
         _safeMint(msg.sender, tokenCounter);
         tokenCounter = tokenCounter + 1;
     }
@@ -202,9 +204,9 @@ contract KryptoEggGang is ERC721, Ownable {
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
         );
-        string memory imageURI = eggImageURI;
+        string memory imageURI = tokenIdToEggMetadata[tokenId].imageURI; //Metadata = tokenIdToEggMetadata[tokenId];
         if (block.timestamp >= tokenIdToHatchTimer[tokenId]) {
-            imageURI = hatchImageURI;
+            imageURI = tokenIdToHatchmetadata[tokenId].imageURI; //Metadata = tokenIdToHatchmetadata[tokenId];
         }
         return
             string(

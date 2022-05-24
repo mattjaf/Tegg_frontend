@@ -3,12 +3,16 @@ import Web3 from "web3";
 import detectEtherumProvider from "@metamask/detect-provider";
 import ThetaEggThetaAbi from "../abi/TeggNFTTheta.json";
 import KryptoEggGangAbi from "../abi/KryptoEggGang.json";
+import KryptoEggGang2Abi from "../abi/KryptoEggGang2.json";
 import './global.css';
 import axios from 'axios';
 import HeaderSection from "./HeaderSection";
 import EggCard from "./EggCard";
+/*import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { useMoralisWeb3Api, useMoralisWeb3ApiCall, useMoralis } from 'react-moralis'
+import { Moralis } from "moralis";*/
 
-
+// Add "start": "react-scripts start" to package.JSON to run locally
 class App extends Component {
   constructor(props) {
     super(props);
@@ -67,6 +71,13 @@ class App extends Component {
       console.log(this.state.contract);
     }
 
+    if (networkId === 4) {
+      var abi = KryptoEggGang2Abi.abi;
+      var address = KryptoEggGang2Abi.address;
+      var contract = new window.web3.eth.Contract(abi, address);
+      this.setState({ contract });
+      console.log(this.state.contract);
+    }
 
     const web3 = window.web3;
     const accounts = await web3.eth.requestAccounts();
