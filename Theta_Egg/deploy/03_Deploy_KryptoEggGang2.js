@@ -10,7 +10,7 @@ module.exports = async ({
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = await getChainId()
-    let tokenURI = "http://localhost:3000/tokenid0"
+    let URI = "https://autumn-bonus-4104.on.fleek.co/#/tokenid0"
     //"https://ipfs.io/ipfs/QmRtVNZuor5uQqnncRUhneTRY1zRfNtFscvf4PfNRwQTfT"
     //"krypto-egg-gang-tokenid-0.nft"
     // "https://doh.pw/?d=krypto-egg-gang-tokenid-0.nft"
@@ -28,7 +28,7 @@ module.exports = async ({
     const networkName = networkConfig[chainId]['name']
     log(`Verify with \n yarn hardhat verify --network ${networkName} ${kryptoEggGang2.address}`)
     log("Minting NFT")
-    tx = await kryptoEggGang2Contract.create(tokenURI, { gasLimit: 18000000 })
+    tx = await kryptoEggGang2Contract.create(URI)
     await tx.wait(1)
     log(`You've made your ${await kryptoEggGang2Contract.tokenCounter()} NFT!`)
     log(`Here is the NFT tokenURI: ${await kryptoEggGang2Contract.tokenURI(4)}`)
