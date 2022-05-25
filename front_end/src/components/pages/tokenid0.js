@@ -42,6 +42,8 @@ class Tokenid0 extends Component {
         console.log(nft)
         var img = await nft.data.image
         this.setState({ img })
+        console.log(img)
+
 
     }
     /* <div className="tokenId-0" >
