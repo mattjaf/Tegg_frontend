@@ -37,7 +37,7 @@ module.exports = async ({
     log("Creating NFT...")
     tx = await kryptoEggGangContract.create({ gasLimit: 18000000 })
     await tx.wait(1)
-    log(`You've made your ${await kryptoEggGangContract.getTokenCounter()} NFT!`)
+    log(`You've made your ${await kryptoEggGangContract.TokenCounter()} NFT!`)
     log(`Here is the NFT tokenURI: ${await kryptoEggGangContract.tokenURI(0)}`)
 }
 

@@ -6,6 +6,7 @@ require("@nomiclabs/hardhat-ethers")
 require("@nomiclabs/hardhat-truffle5")
 require("@nomiclabs/hardhat-etherscan")
 require("hardhat-deploy")
+require("solidity-coverage")
 
 
 require('dotenv').config()
@@ -25,13 +26,15 @@ module.exports = {
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            blockGasLimit: 100000000429720 // whatever you want here
+            blockGasLimit: 100000000429720, // whatever you want here
             // // If you want to do some forking, uncomment this
             // forking: {
             //   url: MAINNET_RPC_URL
             // }
+            chainId: 31337,
         },
         localhost: {
+            chainId: 31337,
         },
         kovan: {
             url: KOVAN_RPC_URL,
@@ -48,6 +51,7 @@ module.exports = {
                 mnemonic: MNEMONIC,
             },
             saveDeployments: true,
+            chainId: 4,
         },
         ganache: {
             url: 'http://localhost:8545',
@@ -98,11 +102,12 @@ module.exports = {
         },
         mumbai: {
             blockGasLimit: 100000000429720,
-            url: "https://rpc-mumbai.maticvigil.com/",
+            url: "https://matic-mumbai.chainstacklabs.com",
             accounts: [PRIVATE_KEY],
             //accounts: {
             //   mnemonic: MNEMONIC,
             // },
+            chainId: 80001,
             saveDeployments: true,
         },
     },
@@ -127,6 +132,12 @@ module.exports = {
     },
     solidity: {
         compilers: [
+            {
+                version: "0.8.7"
+            },
+            {
+                version: "0.8.4"
+            },
             {
                 version: "0.8.0"
             },

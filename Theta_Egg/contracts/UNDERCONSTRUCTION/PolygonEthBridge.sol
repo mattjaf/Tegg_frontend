@@ -22,9 +22,11 @@ contract domainNameInterface {
     }
 }
 
+   //error NotOwner();
+
  contract NFTBridge is ERC721, ReentrancyGuard {
 
-    //error NotOwner();
+
 
     domainNameInterface domainNameContract;
 

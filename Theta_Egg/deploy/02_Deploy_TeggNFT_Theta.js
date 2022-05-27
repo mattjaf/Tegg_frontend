@@ -37,7 +37,7 @@ module.exports = async ({
     log("Creating NFT...")
     tx = await teggNFTThetaContract.create({ gasLimit: 20000000 })
     await tx.wait(1)
-    log(`You've made your ${await teggNFTThetaContract.getTokenCounter()} NFT!`)
+    log(`You've made your ${await teggNFTThetaContract.tokenCounter()} NFT!`)
     log(`Here is the NFT tokenURI: ${await teggNFTThetaContract.tokenURI(0)}`)
 }
 

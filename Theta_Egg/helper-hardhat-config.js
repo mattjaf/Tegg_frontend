@@ -4,14 +4,20 @@ const networkConfig = {
         fee: '100000000000000000',
         keyHash: '0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4',
         jobId: '29fa9aa13bf1468788b7cc4a500a45b8',
-        fundAmount: "1000000000000000000"
+        fundAmount: "1000000000000000000",
+        keepersUpdateInterval: "30",
     },
     31337: {
         name: 'localhost',
         fee: '100000000000000000',
         keyHash: '0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4',
         jobId: '29fa9aa13bf1468788b7cc4a500a45b8',
-        fundAmount: "1000000000000000000"
+        fundAmount: "1000000000000000000",
+        subscriptionId: "588",
+        gasLane: "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc", // 30 gwei
+        keepersUpdateInterval: "30",
+        raffleEntranceFee: "100000000000000000", // 0.1 ETH
+        callbackGasLimit: "500000", // 500,000 gas
     },
     42: {
         name: 'kovan',
@@ -33,7 +39,13 @@ const networkConfig = {
         oracle: '0x7AFe1118Ea78C1eae84ca8feE5C65Bc76CcF879e',
         jobId: '6d1bfe27e7034b1d87b5270556b17277',
         fee: '100000000000000000',
-        fundAmount: "1000000000000000000"
+        fundAmount: "1000000000000000000",
+        subscriptionId: "588",
+        gasLane: "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc", // 30 gwei
+        keepersUpdateInterval: "30",
+        raffleEntranceFee: "100000000000000000", // 0.1 ETH
+        callbackGasLimit: "500000", // 500,000 gas
+        vrfCoordinatorV2: "0x6168499c0cFfCaCD319c818142124B7A15E857ab"
     },
     1: {
         name: 'mainnet',
@@ -71,7 +83,13 @@ const networkConfig = {
     80001: {
         name: 'mumbai',
         // linkToken: '0x326c977e6efc84e512bb9c30f76e30c160ed06fb',
-        fundAmount: "0"
+        vrfCoordinatorV2: '0x7a1BaC17Ccc5b313516C5E16fb24f7659aA5ebed',
+        subscriptionId: "588", //check
+        gasLane: "0x4b09e658ed251bcafeebbc69400383d49f344ace09b9576fe248bb02c003fe9f", // 30 gwei
+        keepersUpdateInterval: "30",
+        raffleEntranceFee: "100000000000000000", // 0.1 ETH
+        callbackGasLimit: "500000", // 500,000 gas
+        fundAmount: '200000000000000' //check
     }
 }
 
@@ -111,9 +129,12 @@ const autoFundCheck = async (contractAddr, networkName, linkTokenAddress, additi
     }
 }
 
+const VERIFICATION_BLOCK_CONFIRMATIONS = 6
+
 module.exports = {
     networkConfig,
     getNetworkIdFromName,
     autoFundCheck,
-    developmentChains
+    developmentChains,
+    VERIFICATION_BLOCK_CONFIRMATIONS,
 }

@@ -36,21 +36,24 @@ class Tokenid0 extends Component {
 
         var token = await Moralis.Web3API.native.runContractFunction(options)
         this.setState({ token })
-        console.log(token)
+
         var nft = await axios.get(token)
         this.setState({ nft })
-        console.log(nft)
+
         var img = await nft.data.image
         this.setState({ img })
-        console.log(img)
+
+
+        var setsession = window.sessionStorage.setItem("nft", img);
+        var getsession = window.sessionStorage.getItem("nft");
+        console.log(getsession);
 
 
     }
     /* <div className="tokenId-0" >
     {document.body.innerHTML = decodeURIComponent(escape(window.atob(this.state.token.slice(29,))))}
-    </div> */
-
-
+    </div> 
+    */
     // <div>{axios.get(decodeURIComponent(atob(this.state.token.slice(29,))))}</div>
     // <img src={this.state.img}></img>
     // <object type="JSON" url={this.state.token}></object>

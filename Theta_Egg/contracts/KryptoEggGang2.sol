@@ -43,7 +43,6 @@ contract KryptoEggGang2 is ERC721, Ownable {
     }
 
     // possibly add individual metadata attributed to tokenId
-
     function tokenURI(uint256 tokenId)
         public
         view

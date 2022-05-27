@@ -10,7 +10,10 @@ module.exports = async ({
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = await getChainId()
-    let URI = "https://autumn-bonus-4104.on.fleek.co/#/tokenid0"
+    // add w/e URI here
+    let URI = "https://pbs.twimg.com/media/FC_zKGWacAAvLXM?format=jpg&name=large"
+    // "http://localhost:3000/#/tokenid0"
+    //"https://autumn-bonus-4104.on.fleek.co/#/tokenid0"
     //"https://ipfs.io/ipfs/QmRtVNZuor5uQqnncRUhneTRY1zRfNtFscvf4PfNRwQTfT"
     //"krypto-egg-gang-tokenid-0.nft"
     // "https://doh.pw/?d=krypto-egg-gang-tokenid-0.nft"
